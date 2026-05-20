@@ -10,7 +10,8 @@ import {
   CardContent, 
   CardActions, 
   Grid, 
-  Paper 
+  Paper,
+  Container 
 } from '@mui/material';
 import { AddShoppingCart as AddIcon, Login as LoginIcon } from '@mui/icons-material';
 
@@ -27,50 +28,54 @@ export default function Home() {
   ];
 
   return (
-    <Box sx={{ mt: 2 }}>
-      {/* Sección Login Fake (Presentado como un Tarjetón/Paper elegante) */}
-      <Paper variant="outlined" sx={{ p: 3, mb: 5, maxWidth: 400, borderRadius: 2 }}>
-        <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
-          {t.login} (Fake Auth)
-        </Typography>
-        
-        {user ? (
-          <Typography variant="body1" color="success.main" sx={{ fontWeight: 'medium' }}>
-            🎉 ¡Sesión activa como {user.name} ({user.role})!
+    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+      
+      <Box sx={{ display: 'flex', justifyContent: 'center', mb: 5 }}>
+        <Paper variant="outlined" sx={{ p: 3, width: '100%', maxWidth: 400, borderRadius: 2, boxShadow: 1 }}>
+          <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
+            {t.login} (Fake Auth)
           </Typography>
-        ) : (
-          <Box sx={{ display: 'flex', gap: 1 }}>
-            <TextField 
-              label="Nombre de usuario" 
-              variant="outlined" 
-              size="small"
-              fullWidth
-              value={usernameInput}
-              onChange={(e) => setUsernameInput(e.target.value)}
-            />
-            <Button 
-              variant="contained" 
-              color="primary" 
-              startIcon={<LoginIcon />}
-              onClick={() => usernameInput && login(usernameInput)}
-            >
-              {t.login}
-            </Button>
-          </Box>
-        )}
-      </Paper>
+          
+          {user ? (
+            <Typography variant="body1" color="success.main" sx={{ fontWeight: 'medium' }}>
+              🎉 ¡Sesión activa como {user.name} ({user.role})!
+            </Typography>
+          ) : (
+            
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+              <TextField 
+                label="Nombre de usuario" 
+                variant="outlined" 
+                size="small"
+                fullWidth
+                value={usernameInput}
+                onChange={(e) => setUsernameInput(e.target.value)}
+              />
+              <Button 
+                variant="contained" 
+                color="primary" 
+                fullWidth
+                startIcon={<LoginIcon />}
+                onClick={() => usernameInput && login(usernameInput)}
+                sx={{ textTransform: 'none' }}
+              >
+                {t.login}
+              </Button>
+            </Box>
+          )}
+        </Paper>
+      </Box>
 
-      {/* Sección Tienda en Grilla Nativa de MUI */}
-      <Typography variant="h5" sx={{ mb: 3, fontWeight: 'bold' }}>
+      <Typography variant="h4" align="center" sx={{ mb: 4, fontWeight: 'bold' }}>
         Productos Disponibles
       </Typography>
 
       <Grid container spacing={3}>
         {fakeProducts.map(prod => (
-          <Grid size={{ xs: 12, sm: 6, md: 4 }} key={prod.id}>
-            <Card sx={{ height: '100%', display: 'flex', flexxlDirection: 'column', justifyContent: 'space-between', borderRadius: 2, boxShadow: 2 }}>
+          <Grid item xs={12} sm={6} md={4} key={prod.id}>
+            <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', borderRadius: 2, boxShadow: 2 }}>
               <CardContent>
-                <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', mb: 1 }}>
+                <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', mb: 1, minHeight: '60px' }}>
                   {prod.name}
                 </Typography>
                 <Typography variant="h5" color="success.main" sx={{ fontFamily: 'monospace', fontWeight: 'bold' }}>
@@ -84,7 +89,7 @@ export default function Home() {
                   fullWidth 
                   startIcon={<AddIcon />}
                   onClick={() => addToCart(prod)}
-                  sx={{ textTransform: 'none', fontWeight: 'bold' }}
+                  sx={{ textTransform: 'none', fontWeight: 'bold', backgroundColor: '#9c27b0', '&:hover': { backgroundColor: '#7b1fa2' } }}
                 >
                   Añadir al {t.cart}
                 </Button>
@@ -93,6 +98,6 @@ export default function Home() {
           </Grid>
         ))}
       </Grid>
-    </Box>
+    </Container>
   );
 }

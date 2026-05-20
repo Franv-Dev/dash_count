@@ -4,7 +4,7 @@ import { useConfig } from '../context/GlobalState';
 import { Box, Container, Typography } from '@mui/material';
 
 export default function Footer() {
-  // Consumimos el estado de configuración de forma segura
+ 
   const { theme } = useConfig();
 
   return (
@@ -13,19 +13,21 @@ export default function Footer() {
       sx={{
         py: 3,
         px: 2,
-        mt: 'auto', // Esto empuja el footer al fondo de la pantalla si hay poco contenido
-        backgroundColor: theme === 'dark' ? 'background.paper' : '#eaeaea',
+        mt: 'auto', 
+        backgroundColor: theme === 'dark' ? '#0b0f19' : '#faf8f8',
         color: 'text.secondary',
-        borderTop: 1,
-        borderColor: 'divider',
+        borderTop: 2,
+        borderColor: theme === 'dark' ? '#7b1fa2' : '#9c27b0',
         textAlign: 'center',
         display: 'flex',
-        alignItems: 'center', // Alineación vertical correcta usando Flexbox en Material UI
+        alignItems: 'center',
         justifyContent: 'center'
       }}
     >
       <Container maxWidth="sm">
-        <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
+        <Typography variant="body2" sx={{ fontWeight: 'medium',
+          letterSpacing: '0.05em',
+          color: theme === 'dark' ? '#b9a0bf' : 'text.secondary' }}>
           © {new Date().getFullYear()} - Programación 3.
         </Typography>
       </Container>
